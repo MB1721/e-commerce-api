@@ -1,12 +1,16 @@
 import { Pool } from 'pg';
-import env from '../.env';
+import dotenv from '../.env';
 
-env = env.config().parsed;
+dotenv.config(); // add settings to process.env
 
-export const pool = new Pool({
+env = process.env;
+
+ const pool = new Pool({
   user: env.USERNAME,
   host: env.HOST,
   database: env.DB,
   password: env.PASSWORD,
   port: env.DB_PORT,
 });
+
+export default pool;
