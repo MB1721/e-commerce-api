@@ -1,7 +1,7 @@
 const env = require('dotenv').config();
 const db = require('./db/connect.js');
 const express = require('express');
-const server = express();
+const app = express();
 
 const PORT = process.env.API_PORT;
 
@@ -17,7 +17,16 @@ async function confirmConnection() {
   client.release(); // return client to pool
 }
 
-server.listen(PORT, () => {
+// set up routes
+
+/*app.use('/profile');
+app.use('/home');
+app.use('/store');
+app.use('/inventory');*/
+
+
+// set up server
+app.listen(PORT, () => {
   console.clear();
   confirmConnection();
 });
