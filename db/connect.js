@@ -8,6 +8,7 @@ const pool = new Pool({
   database: process.env.DB,
   password: process.env.PASSWORD,
   port: process.env.DB_PORT,
+  max: 5
 });
 
 pool.on('release', (err, client) => {

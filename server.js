@@ -11,7 +11,7 @@ async function confirmConnection() {
   const result = await client.query('SELECT NOW()'); // get current time
   const time = result.rows[0].now;
   
-  console.log(`Established connection to ${client.database}`);
+  console.log(`\nEstablished connection to ${client.database}`);
   console.log(`Listening to server on ${PORT}`);
   
   client.release(); // return client to pool
@@ -22,6 +22,10 @@ server.listen(PORT, () => {
   confirmConnection();
 });
 
-/*server.on('close', () => {
-  console.log('Closing');
-})*/
+// Gracefully handle server shutdown
+process.on('SIGINT', () => {
+  console.log('\n\nShutting down the server:\n\n\tDisconnecting the database pool...');
+  db.end();
+  
+  process.exit(0);
+});
