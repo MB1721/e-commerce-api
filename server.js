@@ -25,7 +25,7 @@ server.listen(PORT, () => {
 // Gracefully handle server shutdown
 process.on('SIGINT', () => {
   console.log('\n\nShutting down the server:\n\n\tDisconnecting the database pool...');
-  db.end();
+  db.end(); // disonnect database pool
   
   process.exit(0);
 });
