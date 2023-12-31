@@ -4,6 +4,12 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 
+// routers
+const checkoutRouter = require('./routes/checkout.js');
+const homeRouter = require('./routes/home.js');
+const inventoryRouter = require('./routes/inventory.js');
+const profileRouter = require('./routes/profile.js');
+
 const PORT = process.env.API_PORT;
 
 async function confirmConnection() {
@@ -22,11 +28,6 @@ async function confirmConnection() {
 app.use(bodyParser.json());
 
 // set up routes
-const homeRouter = express.Router();
-const profileRouter = express.Router();
-const inventoryRouter = express.Router();
-const checkoutRouter = express.Router();
-
 app.use('/home', homeRouter);
 app.use('/profile', profileRouter);
 app.use('/inventory', inventoryRouter);
