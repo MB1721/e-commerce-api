@@ -1,8 +1,8 @@
 const env = require('dotenv').config();
-const db = require('./db/connect.js');
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const { confirmDatabaseConnection, disconnectDatabase} = require('./db/connection.js');
 
 // routers
 const checkoutRouter = require('./routes/checkout.js');
@@ -10,18 +10,6 @@ const homeRouter = require('./routes/home.js');
 const inventoryRouter = require('./routes/inventory.js');
 const profileRouter = require('./routes/profile.js');
 const usersRouter = require('./routes/users.js');
-
-async function confirmConnection() {
-  const client = await db.connect(); // create new client
-  
-  const result = await client.query('SELECT NOW()'); // get current time
-  const time = result.rows[0].now;
-  
-  console.log(`\nEstablished connection to ${client.database}`);
-  console.log(`Listening to server on ${PORT}`);
-  
-  client.release(); // return client to pool
-}
 
 // set up app
 app.use(bodyParser.json());
@@ -43,13 +31,9 @@ const PORT = process.env.API_PORT;
 
 app.listen(PORT, () => {
   console.clear();
-  confirmConnection();
+  console.log(`Listening to server on ${PORT}`);
+  confirmDatabaseConnection();
 });
-
-function disconnectDatabase() {
-  console.log('\n...Disconnecting the database pool.');
-  db.end(); // disconnect database pool
-}
 
 // Gracefully handle server shutdown
 process.on('SIGINT', () => {

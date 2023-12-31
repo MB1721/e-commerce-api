@@ -1,5 +1,5 @@
 const express = require('express');
-const db = require('../db/connect.js');
+const db = require('../db/index.js');
 
 const homeRouter = express.Router();
 
