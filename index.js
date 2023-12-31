@@ -9,8 +9,7 @@ const checkoutRouter = require('./routes/checkout.js');
 const homeRouter = require('./routes/home.js');
 const inventoryRouter = require('./routes/inventory.js');
 const profileRouter = require('./routes/profile.js');
-
-const PORT = process.env.API_PORT;
+const usersRouter = require('./routes/users.js');
 
 async function confirmConnection() {
   const client = await db.connect(); // create new client
@@ -34,9 +33,14 @@ app.use('/inventory', inventoryRouter);
 app.use('/checkout', checkoutRouter);
 
 // customer registration
+app.get('/', (req, res, next) => {
+  res.json({'message': 'Welcome to the e-commerce api! Please login to start shopping.'})
+});
 
 
 // set up server
+const PORT = process.env.API_PORT;
+
 app.listen(PORT, () => {
   console.clear();
   confirmConnection();
@@ -44,7 +48,7 @@ app.listen(PORT, () => {
 
 function disconnectDatabase() {
   console.log('\n...Disconnecting the database pool.');
-  db.end(); // disonnect database pool
+  db.end(); // disconnect database pool
 }
 
 // Gracefully handle server shutdown
