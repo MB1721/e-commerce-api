@@ -42,10 +42,15 @@ app.listen(PORT, () => {
   confirmConnection();
 });
 
+function disconnectDatabase() {
+  console.log('\n...Disconnecting the database pool.');
+  db.end(); // disonnect database pool
+}
+
 // Gracefully handle server shutdown
 process.on('SIGINT', () => {
-  console.log('\n\nShutting down the server:\n\n\tDisconnecting the database pool...');
-  db.end(); // disonnect database pool
+  console.log('\n\nShutting down the server:');
   
+  disconnectDatabase();
   process.exit(0);
 });
