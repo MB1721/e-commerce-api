@@ -10,4 +10,10 @@ const pool = new Pool({
   port: process.env.DB_PORT,
 });
 
+pool.on('release', (err, client) => {
+  const {user, database, port, host} = client;
+  if (err) throw err;
+  console.log(`\nReleased client ${user} on ${database}`);
+});
+
 module.exports = pool;
