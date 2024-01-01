@@ -30,7 +30,6 @@ app.get('/', async(req, res, next) => {
 const PORT = process.env.API_PORT;
 
 app.listen(PORT, () => {
-  console.clear();
   console.log(`Listening to server on ${PORT}`);
   confirmDatabaseConnection();
 });
