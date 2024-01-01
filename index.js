@@ -19,12 +19,12 @@ app.use('/home', homeRouter);
 app.use('/profile', profileRouter);
 app.use('/inventory', inventoryRouter);
 app.use('/checkout', checkoutRouter);
+app.use('/users', usersRouter);
 
 // customer registration
-app.get('/', (req, res, next) => {
+app.get('/', async(req, res, next) => {
   res.json({'message': 'Welcome to the e-commerce api! Please login to start shopping.'})
 });
-
 
 // set up server
 const PORT = process.env.API_PORT;
